@@ -1,0 +1,40 @@
+시나리오2
+고객관리
+고객은 아이디와 이름, 성별, 포인트로 구성된다.
+아이디는 8글자이며, 중복된 아이디는 사용할 수 없다.
+이름은 한글로 최대 5글자 이며 성별은 남과 여로 저장한다.
+포인트는 최대 9999.99까지 저장할 수 있다.
+
+고객은 이벤트에 참여 할 수 있다. 
+이벤트는 별도의 테이블에 저장한다.
+이벤트 번호는 숫자3개의 조합이다. 
+이벤트 번호와 이벤트 이름과 날짜를 저장한다.
+
+고객만 이벤트에 참여 가능하고
+이벤트는 현재 계획된 이벤트만 신청이 가능하다.
+-한명의 고객은 여러 이벤트 참여가능/하나의 이벤트는 여러명의고객으로 진행/이벤트는 신청사연
+
+	고객
+create table user (
+id	varchar2(8) primary key,
+name	varchar2(10),
+gender	varchar2(2) check(gender in ('남','여')),
+point	number(6,2) );
+
+	이벤트
+create table event (
+e_num	varchar2(3) primary key,
+e_name	varchar2(10),
+e_day	TIMESTAMP );
+
+	참여
+create table join (
+join_num	varchar2(3) primary key,
+id	varchar2(8),
+e_num	varchar2(3),
+message	varchar(10),
+constraint fk_join_id foreign key (id) references user(id),★ on delete cascade, 
+(☆user 테이블에 id컬럼이 삭제되면 자식튜플도 삭제)
+constraint fk_join_e_num foreign key (e_num) references event(e_num) ★on delete set null 
+(☆event테이블에 e_num 컬럼이 삭제되면 자식 릴레이션의 외래키인 e_num의값을 null로 설정하겠다)
+ );

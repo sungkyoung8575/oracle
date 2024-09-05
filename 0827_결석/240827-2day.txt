@@ -1,0 +1,141 @@
+2day - 240827
+
+insert 명령어 - html > 사용자가 입력 > 저장 > 입력받은 값이 java를 통과 > db처리되어 > html 로 보여진다
+
+CRUD
+
+C - row를 insert
+R - row를 select
+U - row를 update
+D - row를 delete
+
+ex) 게시판 기능  
+
+글쓰기(insert) 글수정(update) 글삭제(delete) 검색(select) 전체보기(select) 좋아요누르기(insert) 추천하기(insert)
+찜하기(insert) 장바구니넣기(insert)
+
+위의 예시와 crud 가 final project에서 쓰일것
+
+html css js ( vew )
+
+KEY
+기본키(primary key), 외래키(foreign key)
+
+기본키의 특징 : 튜플(ROW)을 유일하게 식별할 수 있다. 기본키로 index(색인)을 형성하여 저장한다. null 불가하다.(not null포함)
+	        index는 검색속도가 향상된다.
+
+튜플 유일하게 식별하고,
+속도개선을 위한 인덱스라는 기술형성
+
+이름 주소 전화번호를 설계했다.
+어떠한 이상현상이 발생할수있을까?
+
+아래(EX)와 같이 설계 했을때 row를 유니크하게 선택하지 못해서 이상현상이 발생할 수 있다.
+
+c,r은 상관이 없지만 
+
+u(갱신)				d(삭제)
+갱신이상현상이 발생한다.		삭제이상현상이 발생한다.(원하지않는 데이터까지 삭제할수있다.)
+
+튜플을 유일하게 식별하지 못하기 때문에 가능하다.
+
+위의 이유로 ID를 추가하여 이상현상을 피할 수 있다.
+
+이상현상을 고려한다. 
+QURRY는 속도가 빨라야한다. 
+
+이상현상은 UNIQUE로 해결할 수 있지만
+속도는 INDEX로 해결해야 한다.
+
+but) index가 많으면 많을수록 속도는 느려진다
+      table당 한개가 좋다.
+
+<위의 속도는 READ할 때의 속도>
+
+EX ) 		member(테이블명)
+
+	ID		이름 		주소 		전화번호
+-------------------------------------------------------------------------
+	A		홍길동		서울		1111
+	B		일지매		서울		1111
+	C		홍길동		수원		2222
+
+기본키 코드사용 위치
+
+create table m(
+id	varchar(1)	primary key,(unique -이상현상은 방지하나 속도가 개선되지 않는다. )
+name	varchar(2)
+address	varchar(10)
+);
+
+
+EX)
+	primary key
+	id			이름			전화번호			차번호
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ		
+	a			홍			1111			1
+	a			홍			1111			2
+
+
+		위의 테이블을 분리한다 = 정규화를 진행한다.(전문적)
+					l
+					V
+			member				car
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	ID(기본)key	이름		전번	ㅣ	차번호		ID(외래)key
+	A		홍		1111	ㅣ	1		A
+	b		홍		2222	ㅣ	2		b		
+						ㅣ
+
+자식 릴레이션의 외래키는 부모 릴레이션(참조대상)의 특정 컬럼을 참조한다.
+컬럼 to 컬럼 
+
+
+
+설계시 :   이상현상 = 유일성 고려
+		   = 데이터의 중복 최소화 (테이블 분리)
+
+
+
+1day 복습
+
+DB  -정형 : TABLE형태    =행과 열
+	oracle	        row    column-속성 제약조건
+	maria	       CRUD	
+	mysql
+	mssql
+   
+
+     -비정형 : BIGDATA
+
+
+
+member table
+id : 8글자, 기본키
+name : 한글5글자,
+tel : 13글자
+
+car table
+carnum : 4글자
+id : 8글자, 외래키(참조하는 정보-member릴레이션의 id 컬럼)
+
+이렇게 테이블을 논리적설계까지 완료 하였습니다.
+물리적 테이블을 만들기 위한 쿼리문을 조별로 완성해 보세요.
+이 때, 메모장 등 손코딩으로 합니다.
+
+create table member(
+id varchar(8) primary key,
+name varcrar2(10) not null,
+tel number(13) not null
+);
+
+
+create table car(
+carnum number(4) not null,
+id varchar(8) not null,
+constraint fk_id foreign key(id) references member (id)
+
+
+
+

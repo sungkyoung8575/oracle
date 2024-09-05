@@ -1,0 +1,6 @@
+select t.cId as 아이디, t.tDate as 구매날짜, mPrice + (bPrice*bCount)+(fPrice*fCount) as 총지불액
+from movie m, beverage b, food f, ticket t
+where b.bCode = t.bCode and t.fCode = f.fCode and m.mName = t.mName
+order by cId;
+
+select cId, count(*) as "후기개수" from review group by cId;
