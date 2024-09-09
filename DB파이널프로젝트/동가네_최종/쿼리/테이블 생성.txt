@@ -1,0 +1,52 @@
+//회원 테이블 생성
+create table member(
+ID varchar(10) primary key,
+PWD varchar(10),
+NAME varchar(10),
+B_DATE date,
+P_NUM varchar(13),
+ADDR varchar(20));
+
+//상품 테이블 생성
+create table goods(
+I_NUM INT primary key,
+I_NAME VARCHAR(30) ,
+PRICE VARCHAR(10),
+R_DAY VARCHAR(3),
+S_MONEY VARCHAR(10),
+M_MONEY VARCHAR(10),
+star float default 0
+);
+
+
+//구매 테이블 생성
+create table BUY(
+R_NUM INT primary KEY auto_increment,
+ID varchar(10),
+I_NUM INT,
+I_NAME VARCHAR(30),
+R_DAY VARCHAR(3),
+M_MONEY VARCHAR(10),
+D_DATE TIMESTAMP);
+
+
+//리뷰 테이블 생성
+create table review(
+rv_num int primary key auto_increment,
+ID varchar(10),
+I_NUM int,
+I_NAME VARCHAR(30),
+to_date timestamp,
+star int,
+r_write varchar(1000)
+);
+
+
+//찜테이블 생성
+create table jjim(
+id varchar(10),
+jjim_num int,
+jjim_name varchar(30)
+);
+
+

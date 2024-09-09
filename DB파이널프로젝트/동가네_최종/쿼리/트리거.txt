@@ -1,0 +1,35 @@
+//리뷰 추가 별점 트리거
+delimiter //
+create trigger update_star
+after insert 
+on review
+for each row 
+begin 
+	update goods set star=(select avg(star) from review  where i_num=new.i_num)
+							where i_num=new.i_num;
+end
+delimiter ;
+
+
+//리뷰 삭제 별점 트리거
+delimiter //
+create trigger back_star
+after delete 
+on review
+for each row 
+begin 
+	update goods set star=(select avg(star) from review  where i_num=old.i_num)
+							where i_num=old.i_num;
+end
+delimiter ;
+
+//구매시 회원 포인트 중첩
+create trigger UPDATE_POINT
+	after insert
+	on BUY
+	for each row 
+	begin
+		UPDATE MEMBER set MEM_POINT=mem_point+new.mem_POINT
+			where ID=new.ID
+	end
+DELIMITER;

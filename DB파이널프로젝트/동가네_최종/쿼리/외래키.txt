@@ -1,0 +1,19 @@
+//구매 ID fk
+alter table buy
+add constraint fk_buy_id foreign key(id) references member(id);
+
+//구매 i_num fk
+alter table buy
+add constraint fk_buy_i_num foreign key(i_num) references goods(i_num);
+
+//리뷰 ID_fk
+alter table review
+add constraint fk_review_id foreign key(id) references member(id);
+
+//리뷰 i_num_fk
+alter table review
+add constraint fk_review_i_num foreign key(i_num) references goods(i_num);
+
+//구매 id_fk
+alter table buy
+add constraint fk_buy_id foreign key(id) references member(id);

@@ -1,0 +1,17 @@
+CREATE TABLE ask(
+s_id varchar(20),
+id varchar(20),
+i_name varchar(20),
+moon_content varchar(20),
+comment varchar(20),
+SECRET VARCHAR(1) CHECK(SECRET IN('Y','N')))DEFAULT charset=utf8;
+
+insert into ask (s_id,id,i_name,moon_content,comment,SECRET) values
+('master01', 'user001','삼성 QLED TV 65인치','히히히호호호해해12','응 아니야','Y');
+
+SELECT CASE WHEN SECRET = 'Y' THEN
+(SELECT REPLACE(moon_content,moon_content,'*******************') c1
+FROM ask)
+ELSE (SELECT MOON_CONTENT FROM ASK)
+END
+FROM ASK;
